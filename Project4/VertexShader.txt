@@ -1,0 +1,21 @@
+#version 330 core
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec3 normal;
+layout (location = 2) in vec2 texCoords;
+
+out vec2 TexCoords;
+
+uniform mat4 transformMatrix;
+uniform mat4 upperBeak;
+uniform mat4 lowerBeak;
+uniform mat4 cameraMatrix;
+uniform int objectID=1;
+
+void main()
+{
+	if(objectID==0){gl_Position = cameraMatrix *transformMatrix* vec4(position, 1.0f);} //main body
+	else if(objectID==1){gl_Position = cameraMatrix * transformMatrix*upperBeak * vec4(position, 1.0f);} //part1
+	else if(objectID==2){gl_Position = cameraMatrix * transformMatrix*lowerBeak * vec4(position, 1.0f);} //part2
+
+	TexCoords = texCoords;
+}
